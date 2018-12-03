@@ -13,7 +13,7 @@ if not os.path.exists("data/token.txt"):
     sys.exit(0)
 
 tk = open("data/token.txt", "r")
-MY_TOKEN = tk.readline()[:-1]
+MY_TOKEN = tk.readline()
 
 def printInfo(results, n=10):
     for i in range(n):
@@ -40,8 +40,7 @@ def printSample(d, type):
 TICK = 450
 SLEEP_TIME = 1
 
-
-def writeResults(fd, my_list, encoding='utf-8'):
+def writeResults(fd, my_list, encoding='utf8'):
     count = 0
     for release in my_list:
         count += 1
@@ -52,8 +51,6 @@ def writeResults(fd, my_list, encoding='utf-8'):
 
 def getReleases(d):
     results = d.search('*', type='release')
-    print()
-    return
     # print(results)
     fd = open("data/releases.txt", "w")
     count = 0
