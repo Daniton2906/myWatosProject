@@ -46,6 +46,9 @@ def writeReleases(d, encoding='utf-8'):
     for i in range(10):
         print("Release for year " + str(year + i))
         suma += writeInfo(d, "release", str(year + i) ,encoding)
+        print("Get to sleep for {}s at: {}".format(SLEEP_TIME, datetime.datetime.now()))
+        time.sleep(SLEEP_TIME)
+        print("Wake up at {} ...".format(datetime.datetime.now()))
     print("Total releases: " + str(suma))
     return suma
 
