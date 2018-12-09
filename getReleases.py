@@ -73,22 +73,19 @@ def writeInfo(d, search_type, search_year, encoding):
             header_t = header_t[:-1] + '\n'
             writeEncoded(fd_t, header_t, encoding)
             count = 0
-            try:
-                for element in results:
+            for element in results:
+                count += 1
+                try:
                     writeResults(fd_r, fd_t, element, encoding)
-                    count += 1
+                except Exception as e:
+                    print("ups")
+                    print(e)
+                    traceback.print_exc()
                     print("read ...{} lines".format(count))
-                    if count % TICK == 0:
-                        print("Get to sleep for {}s at: {}".format(SLEEP_TIME, datetime.datetime.now()))
-                        time.sleep(SLEEP_TIME)
-                        print("Wake up at {} ...".format(datetime.datetime.now()))
-            except Exception as e:
-                print("ups")
-                print(e)
-                traceback.print_exc()
-            finally:
-                fd_t.close()
-                fd_r.close()
+                if count % TICK == 0:
+                    print("Get to sleep for {}s at: {}".format(SLEEP_TIME, datetime.datetime.now()))
+                    time.sleep(SLEEP_TIME)
+                    print("Wake up at {} ...".format(datetime.datetime.now()))
     return count_results
 
 def stringList(data, list_key=None):
