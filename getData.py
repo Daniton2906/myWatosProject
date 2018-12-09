@@ -15,7 +15,25 @@ if not os.path.exists("data/token.txt"):
 tk = open("data/token.txt", "r")
 MY_TOKEN = tk.readline()
 
-release_keys = ['user_data', 'community', 'catno', 'year', 'id', 'style', 'thumb', 'title', 'label', 'master_id', 'type', 'format', 'barcode', 'master_url', 'genre', 'country', 'uri', 'cover_image', 'resource_url', 'status', 'videos', 'series', 'labels', 'artists', 'images', 'format_quantity', 'artists_sort', 'genres', 'num_for_sale', 'date_changed', 'lowest_price', 'styles', 'released_formatted', 'formats', 'estimated_weight', 'released', 'date_added', 'extraartists', 'tracklist', 'notes', 'identifiers', 'companies', 'data_quality']
+# release_keys = ['user_data', 'community', 'catno', 'year', 'id', 'style', 'thumb', 'title', 'label', 'master_id', 'type', 'format', 'barcode', 'master_url', 'genre', 'country', 'uri', 'cover_image', 'resource_url', 'status', 'videos', 'series', 'labels', 'artists', 'images', 'format_quantity', 'artists_sort', 'genres', 'num_for_sale', 'date_changed', 'lowest_price', 'styles', 'released_formatted', 'formats', 'estimated_weight', 'released', 'date_added', 'extraartists', 'tracklist', 'notes', 'identifiers', 'companies', 'data_quality']
+release_keys = ['community',
+                'year',
+                'id',
+                'style',
+                'title',
+                'label',
+                'master_id',
+                'format',
+                'genre',
+                'country',
+                'uri',
+                'labels',
+                'artists',
+                'genres',
+                'styles',
+                'formats',
+                'released',
+                'tracklist']
 
 d = discogs_client.Client('ExampleApplication/0.1', user_token=MY_TOKEN)
 
@@ -26,7 +44,7 @@ d = discogs_client.Client('ExampleApplication/0.1', user_token=MY_TOKEN)
 # printInfo(results)
 
 # print(results[0].tracklist.fetch('title'))
-printSample(d, 'release')
+printSample(d, 'release', keys=release_keys)
 # printSample(d, 'artist')
 # printSample(d, 'master')
 # printSample(d, 'label')
