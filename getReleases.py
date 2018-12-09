@@ -42,16 +42,19 @@ SLEEP_TIME = 120
 
 def writeReleases(d, encoding='utf-8'):
     year = 2008
+    suma = 0
     for i in range(10):
         print("Release for year " + str(year + i))
-        writeInfo(d, "release", str(year + i) ,encoding)
+        suma += writeInfo(d, "release", str(year + i) ,encoding)
+    return suma
 
 def writeEncoded(fd, s, encoding):
     fd.write(s.encode(encoding))
 
 def writeInfo(d, search_type, search_year, encoding):
     results = d.search('*', type=search_type, country="Chile", year=search_year)
-    print("Count: ", results.count)
+    count_results = results.count
+    print("Count: ", count_results)
     # print(results)
     with io.open("data/releases" + search_year + ".csv", 'wb') as fd_r:
         header_r = ""
@@ -69,13 +72,12 @@ def writeInfo(d, search_type, search_year, encoding):
             try:
                 for element in results:
                     writeResults(fd_r, fd_t, element, encoding)
-                    print("read ...{} lines".format(count))
                     count += 1
+                    print("read ...{} lines".format(count))
                     if count % TICK == 0:
                         print("Get to sleep for {}s at: {}".format(SLEEP_TIME, datetime.datetime.now()))
                         time.sleep(SLEEP_TIME)
                         print("Wake up at {} ...".format(datetime.datetime.now()))
-                        return
             except Exception as e:
                 print("ups")
                 print(e)
@@ -83,6 +85,7 @@ def writeInfo(d, search_type, search_year, encoding):
             finally:
                 fd_t.close()
                 fd_r.close()
+    return count_results
 
 def stringList(data, list_key=None):
     s = ""
