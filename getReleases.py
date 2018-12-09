@@ -46,6 +46,7 @@ def writeReleases(d, encoding='utf-8'):
     for i in range(10):
         print("Release for year " + str(year + i))
         suma += writeInfo(d, "release", str(year + i) ,encoding)
+    print("Total releases: " + str(suma))
     return suma
 
 def writeEncoded(fd, s, encoding):
