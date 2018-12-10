@@ -24,7 +24,7 @@ tk = open("data/token.txt", "r")
 MY_TOKEN = tk.readline()
 
 # LABEL_KEYS = ['id', 'resource_url', 'profile', 'releases_url', 'name', 'contact_info', 'parent_label', 'uri', 'sublabels', 'urls', 'images', 'data_quality']
-LABEL_KEYS = ['id', 'name', 'parent_label', 'uri', 'sublabels']
+LABEL_KEYS = ['id', 'name', 'parent_label', 'sublabels', 'uri']
 
 TICK = 5 # 10
 SLEEP_TIME = 65
