@@ -70,11 +70,11 @@ def writeInfo(d, visited_artists, search_year, encoding):
                 artists = line.split('\t')[-3].split(',')
                 for artist_id in artists:
                     count += 1
-                    writed = False
-                    while not writed:
+                    written = False
+                    while not written:
                         try:
                             writeResults(fd_a, d, artist_id, visited_artists, encoding)
-                            writed = True
+                            written = True
                         except HTTPError as e:
                             print("tranka m3n")
                             traceback.print_exc()
@@ -82,7 +82,7 @@ def writeInfo(d, visited_artists, search_year, encoding):
                         except Exception as e:
                             print("Otro error feo")
                             traceback.print_exc()
-                            writed = True
+                            written = True
                     print("read ...{} lines".format(count))
                     if count % TICK == 0:
                         nap()

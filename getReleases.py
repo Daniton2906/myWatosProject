@@ -81,18 +81,18 @@ def writeInfo(d, search_type, search_year, encoding):
             count = 0
             for element in results:
                 count += 1
-                writed = False
-                while not writed:
+                written = False
+                while not written:
                     try:
                         writeResults(fd_r, fd_t, element, encoding)
-                        writed = True
+                        written = True
                     except HTTPError as e:
                         print("tranka m3n")
                         nap()
                     except Exception as e:
                         print("Otro error feo")
                         traceback.print_exc()
-                        writed = True
+                        written = True
                 print("read ...{} lines".format(count))
                 if count % TICK == 0:
                     nap()
