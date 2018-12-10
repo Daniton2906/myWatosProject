@@ -9,6 +9,8 @@ import discogs_client
 
 import traceback
 
+from discogs_client.exceptions import HTTPError
+
 from utils import printSample
 
 if not os.path.isdir("data"):
@@ -24,7 +26,7 @@ MY_TOKEN = tk.readline()
 # ARTIST_KEYS = ['thumb', 'title', 'user_data', 'master_url', 'uri', 'cover_image', 'resource_url', 'master_id', 'type', 'id', 'name']
 ARTIST_KEYS = ['id', 'name', 'realname', 'members', 'uri']
 
-TICK = 15
+TICK = 10
 SLEEP_TIME = 65 #
 
 
@@ -34,16 +36,19 @@ def writeArtists(d, encoding='utf-8'):
     for i in range(2): # (10):
         print("Artist for year " + str(year + i) + " in Chile.")
         writeInfo(d, visited_artists, str(year + i), encoding)
-        print("Get to sleep for {}s at: {}".format(SLEEP_TIME, datetime.datetime.now()))
-        time.sleep(SLEEP_TIME)
-        print("Wake up at {} ...".format(datetime.datetime.now()))
+        nap()
     print("Total artists: " + str(len(visited_artists)))
     return len(visited_artists)
 
 
-
 def writeEncoded(fd, s, encoding):
     fd.write(s.encode(encoding))
+
+
+def nap():
+    print("Get to sleep for {}s at: {}".format(SLEEP_TIME, datetime.datetime.now()))
+    time.sleep(SLEEP_TIME)
+    print("Wake up at {} ...".format(datetime.datetime.now()))
 
 
 def writeInfo(d, visited_artists, search_year, encoding):
@@ -65,17 +70,22 @@ def writeInfo(d, visited_artists, search_year, encoding):
                 artists = line.split('\t')[-3].split(',')
                 for artist_id in artists:
                     count += 1
-                    try:
-                        writeResults(fd_a, d, artist_id, visited_artists, encoding)
-                    except Exception as e:
-                        print("ups")
-                        print(e)
-                        traceback.print_exc()
+                    writed = False
+                    while not writed:
+                        try:
+                            writeResults(fd_a, d, artist_id, visited_artists, encoding)
+                            writed = True
+                        except HTTPError as e:
+                            print("tranka m3n")
+                            traceback.print_exc()
+                            nap()
+                        except Exception as e:
+                            print("Otro error feo")
+                            traceback.print_exc()
+                            writed = True
                     print("read ...{} lines".format(count))
                     if count % TICK == 0:
-                        print("Get to sleep for {}s at: {}".format(SLEEP_TIME, datetime.datetime.now()))
-                        time.sleep(SLEEP_TIME)
-                        print("Wake up at {} ...".format(datetime.datetime.now()))
+                        nap()
                         return
     return
 
