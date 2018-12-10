@@ -33,7 +33,7 @@ SLEEP_TIME = 65 #
 def writeArtists(d, encoding='utf-8'):
     year = 2008
     visited_artists = []
-    for i in range(2): # (10):
+    for i in range(10):
         print("Artist for year " + str(year + i) + " in Chile.")
         writeInfo(d, visited_artists, str(year + i), encoding)
         nap()
@@ -86,7 +86,6 @@ def writeInfo(d, visited_artists, search_year, encoding):
                     print("read ...{} lines".format(count))
                     if count % TICK == 0:
                         nap()
-                        return
     return
 
 def writeMembers(data, write):
