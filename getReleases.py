@@ -9,6 +9,8 @@ import discogs_client
 
 import traceback
 
+from discogs_client.exceptions import HTTPError
+
 from utils import printSample
 
 if not os.path.isdir("data"):
@@ -46,14 +48,18 @@ def writeReleases(d, encoding='utf-8'):
     for i in range(10):
         print("Release for year " + str(year + i))
         suma += writeInfo(d, "release", str(year + i) ,encoding)
-        print("Get to sleep for {}s at: {}".format(SLEEP_TIME, datetime.datetime.now()))
-        time.sleep(SLEEP_TIME)
-        print("Wake up at {} ...".format(datetime.datetime.now()))
+        nap()
     print("Total releases: " + str(suma))
     return suma
 
 def writeEncoded(fd, s, encoding):
     fd.write(s.encode(encoding))
+
+def nap():
+    print("Get to sleep for {}s at: {}".format(SLEEP_TIME, datetime.datetime.now()))
+    time.sleep(SLEEP_TIME)
+    print("Wake up at {} ...".format(datetime.datetime.now()))
+
 
 def writeInfo(d, search_type, search_year, encoding):
     results = d.search('*', type=search_type, country="Chile", year=search_year)
@@ -73,22 +79,23 @@ def writeInfo(d, search_type, search_year, encoding):
             header_t = header_t[:-1] + '\n'
             writeEncoded(fd_t, header_t, encoding)
             count = 0
-            try:
-                for element in results:
-                    writeResults(fd_r, fd_t, element, encoding)
-                    count += 1
-                    print("read ...{} lines".format(count))
-                    if count % TICK == 0:
-                        print("Get to sleep for {}s at: {}".format(SLEEP_TIME, datetime.datetime.now()))
-                        time.sleep(SLEEP_TIME)
-                        print("Wake up at {} ...".format(datetime.datetime.now()))
-            except Exception as e:
-                print("ups")
-                print(e)
-                traceback.print_exc()
-            finally:
-                fd_t.close()
-                fd_r.close()
+            for element in results:
+                count += 1
+                written = False
+                while not written:
+                    try:
+                        writeResults(fd_r, fd_t, element, encoding)
+                        written = True
+                    except HTTPError as e:
+                        print("tranka m3n")
+                        nap()
+                    except Exception as e:
+                        print("Otro error feo")
+                        traceback.print_exc()
+                        written = True
+                print("read ...{} lines".format(count))
+                if count % TICK == 0:
+                    nap()
     return count_results
 
 def stringList(data, list_key=None):
