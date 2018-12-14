@@ -50,5 +50,5 @@ def file_opener(path, old_prefix, new_prefix, old_uri, new_uri, old_type, new_ty
 if __name__ == '__main__':
     file_opener('./turtle_files/labels/', OLD_PREFIX, NEW_PREFIX, OLD_URI, NEW_URI, OLD_TYPE, "ex:Label")
     file_opener('./turtle_files/artists/', OLD_PREFIX, NEW_PREFIX, OLD_URI, NEW_URI, OLD_TYPE, "ex:Artist")
-    file_opener('./turtle_files/tracks/', OLD_PREFIX, NEW_PREFIX, OLD_URI, NEW_URI, OLD_TYPE, "ex:Artist")
+    file_opener('./turtle_files/tracks/', OLD_PREFIX, NEW_PREFIX, OLD_URI, NEW_URI, OLD_TYPE, "ex:Track")
     file_opener('./turtle_files/releases/', OLD_PREFIX, NEW_PREFIX, OLD_URI, NEW_URI, OLD_TYPE, "ex:Release")
