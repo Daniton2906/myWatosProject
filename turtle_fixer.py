@@ -31,18 +31,18 @@ def divide_list(line):
     list += ") ;\n"
     return predicate + list
 
-
-for (dirpath, dirnames, filenames) in os.walk('./turtle_files'):
-    files.extend(filenames)
-    for file in filenames:
-        with open('./turtle_files/'+file, 'r', encoding='UTF-8', newline='') as f:
-            filereader = f.readlines()
-            with open('./turtle_files2/' + file, 'w+', encoding='UTF-8') as f2:
-                for line in filereader:
-                    if "ns1:genre" in line or "ns1:style" in line:
-                        rdflist = divide_list(line)
-                        f2.write(rdflist)
-                    else:
-                        f2.write(line)
-            f2.close()
-        f.close()
+def runFixer():
+    for (dirpath, dirnames, filenames) in os.walk('./turtle_files'):
+        files.extend(filenames)
+        for file in filenames:
+            with open('./turtle_files/'+file, 'r', encoding='UTF-8', newline='') as f:
+                filereader = f.readlines()
+                with open('./turtle_files2/' + file, 'w+', encoding='UTF-8') as f2:
+                    for line in filereader:
+                        if "ns1:genre" in line or "ns1:style" in line:
+                            rdflist = divide_list(line)
+                            f2.write(rdflist)
+                        else:
+                            f2.write(line)
+                f2.close()
+            f.close()
