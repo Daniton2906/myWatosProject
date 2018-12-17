@@ -1,1 +1,4 @@
 discogs-client
+pandas>=0.17.0
+rdflib>=4.2.1
+python-slugify>=1.2.1

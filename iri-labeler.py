@@ -84,7 +84,7 @@ def file_opener(path, old_prefix, new_prefix, old_uri, new_uri, old_type, new_ty
         second_setter(path+file, replaces)
 
 if __name__ == '__main__':
-    file_opener('./turtle_files/labels/', OLD_PREFIX, NEW_PREFIX, OLD_URI, NEW_URI, OLD_TYPE, "ex:Label", LABEL_PROPERTY_REPLACE)
-    file_opener('./turtle_files/artists/', OLD_PREFIX, NEW_PREFIX, OLD_URI, NEW_URI, OLD_TYPE, "ex:Artist", ARTIST_PROPERTY_REPLACE)
-    file_opener('./turtle_files/tracks/', OLD_PREFIX, NEW_PREFIX, OLD_URI, NEW_URI, OLD_TYPE, "ex:Track", TRACK_PROPERTY_REPLACE)
-    file_opener('./turtle_files/releases/', OLD_PREFIX, NEW_PREFIX, OLD_URI, NEW_URI, OLD_TYPE, "ex:Release", RELEASES_PROPERTY_REPLACE)
+    file_opener('./watosProject/label/', OLD_PREFIX, "dcgs_label:", OLD_URI, NEW_URI, OLD_TYPE, "ex:Label", LABEL_PROPERTY_REPLACE)
+    file_opener('./watosProject/artist/', OLD_PREFIX, "dcgs_artist:", OLD_URI, NEW_URI, OLD_TYPE, "ex:Artist", ARTIST_PROPERTY_REPLACE)
+    file_opener('./watosProject/track/', OLD_PREFIX, "dcgs_track:", OLD_URI, NEW_URI, OLD_TYPE, "ex:Track", TRACK_PROPERTY_REPLACE)
+    file_opener('./watosProject/release/', OLD_PREFIX, "dcgs_release:", OLD_URI, NEW_URI, OLD_TYPE, "ex:Release", RELEASES_PROPERTY_REPLACE)
